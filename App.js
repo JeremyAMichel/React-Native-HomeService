@@ -10,7 +10,7 @@ export default function App() {
     >
       <View style={styles.container}>
         <SignedIn>
-          you are sign in
+          <Text>you are sign in</Text>
         </SignedIn>
         <SignedOut>
           <Login />
