@@ -15,8 +15,8 @@ export default function Header() {
           <View style={styles.profileContainer}>
             <Image source={{ uri: user?.imageUrl }} style={styles.userImage} />
             <View>
-              <Text style={{ color: Colors.WHITE }}>Welcome,</Text>
-              <Text style={{ color: Colors.WHITE, fontSize: 20 }}>
+              <Text style={{ color: Colors.WHITE, fontFamily: 'outfit' }}>Welcome,</Text>
+              <Text style={{ color: Colors.WHITE, fontSize: 20, fontFamily: 'outfit-medium' }}>
                 {user?.fullName}
               </Text>
             </View>
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: "85%",
     fontSize: 16,
+    fontFamily: 'outfit',
   },
 
   searchBarContainer: {

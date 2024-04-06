@@ -26,6 +26,9 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "homeservice"
+    "scheme": "homeservice",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
