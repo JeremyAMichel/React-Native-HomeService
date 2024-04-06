@@ -4,20 +4,19 @@ import Colors from "../../Utils/Colors";
 import * as WebBrowser from "expo-web-browser";
 import { useOAuth } from "@clerk/clerk-expo";
 import { useWarmUpBrowser } from "../../hooks/useWarmUpBrowser";
- 
+
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Login() {
-
   useWarmUpBrowser();
- 
+
   const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
 
   const onPress = React.useCallback(async () => {
     try {
       const { createdSessionId, signIn, signUp, setActive } =
         await startOAuthFlow();
- 
+
       if (createdSessionId) {
         setActive({ session: createdSessionId });
       } else {
@@ -29,51 +28,46 @@ export default function Login() {
   }, []);
 
   return (
-    
-      <View style={{ alignItems: "center" }}>
-        <Image
-          source={require("./../../../assets/images/login.png")}
-          style={styles.loginImage}
-        />
-        <View style={styles.subContainer}>
-          <Text
-            style={{ fontSize: 27, color: Colors.WHITE, textAlign: "center" }}
-          >
-            Let's Find
-            <Text style={{ fontWeight: "bold" }}>
-              Professionnal Cleaning and Repair
-            </Text>
-            Service
-          </Text>
+    <View style={{ alignItems: "center" }}>
+      <Image
+        source={require("./../../../assets/images/login.png")}
+        style={styles.loginImage}
+      />
+      <View style={styles.subContainer}>
+        <Text
+          style={{ fontSize: 27, color: Colors.WHITE, textAlign: "center" }}
+        >
+          Let's Find{" "}
+          <Text style={{ fontWeight: "bold" }}>
+            Professionnal Cleaning and Repair
+          </Text>{" "}
+          Service
+        </Text>
+        <Text
+          style={{
+            fontSize: 18,
+            color: Colors.WHITE,
+            textAlign: "center",
+            marginTop: 20,
+          }}
+        >
+          Best App to find services near you which deliver you a Professionnal
+          service
+        </Text>
+
+        <TouchableOpacity style={styles.button} onPress={onPress}>
           <Text
             style={{
-              fontSize: 18,
-              color: Colors.WHITE,
               textAlign: "center",
-              marginTop: 20,
+              fontSize: 17,
+              color: Colors.PRIMARY,
             }}
           >
-            Best App to find services near you which deliver you a Professionnal
-            service
+            Let's Get Started
           </Text>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={onPress}
-          >
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 17,
-                color: Colors.PRIMARY,
-              }}
-            >
-              Let's Get Started
-            </Text>
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       </View>
-    
+    </View>
   );
 }
 
