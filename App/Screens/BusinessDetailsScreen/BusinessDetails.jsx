@@ -5,20 +5,22 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Modal,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../../Utils/Colors";
-import Heading from "../../Components/Heading";
 import BusinessPhotos from "./BusinessPhotos";
 import BusinessAboutMe from "./BusinessAboutMe";
+import BookingModal from "./BookingModal";
 
 export default function BusinessDetails() {
   const param = useRoute().params;
   const [business, setBusiness] = useState(param?.business);
   const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {}, []);
 
@@ -99,7 +101,14 @@ export default function BusinessDetails() {
           </View>
         </View>
       </ScrollView>
-      <View>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          margin: 8,
+          gap: 8,
+        }}
+      >
         <TouchableOpacity style={styles.messageBtn}>
           <Text
             style={{
@@ -112,19 +121,27 @@ export default function BusinessDetails() {
             Message
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bookingBtn}>
+        <TouchableOpacity
+          style={styles.bookingBtn}
+          onPress={() => setShowModal(true)}
+        >
           <Text
             style={{
               textAlign: "center",
               fontFamily: "outfit-medium",
-              color: Colors.PRIMARY,
+              color: Colors.WHITE,
               fontSize: 18,
             }}
           >
-            Message
+            Book Now
           </Text>
         </TouchableOpacity>
       </View>
+
+      {/* Booking Screen Modal */}
+      <Modal animationType="slide" visible={showModal}>
+        <BookingModal hideModal={() => setShowModal(false)} />
+      </Modal>
     </View>
   );
 }
@@ -155,6 +172,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.PRIMARY,
     borderRadius: 99,
+    flex: 1,
   },
 
   bookingBtn: {
@@ -163,5 +181,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.PRIMARY,
     borderRadius: 99,
+    flex: 1,
   },
 });
