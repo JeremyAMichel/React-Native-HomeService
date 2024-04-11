@@ -1,10 +1,16 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import CalendarPicker from "react-native-calendar-picker";
 import Colors from "../../Utils/Colors";
 
 export default function BookingModal({ hideModal }) {
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+
+  const onDateChange = (date) => {
+    setSelectedStartDate(date);
+  };
+
   return (
     <View style={{ padding: 20 }}>
       <TouchableOpacity
@@ -25,7 +31,7 @@ export default function BookingModal({ hideModal }) {
       {/* Calendar Section */}
       <View style={styles.calendarContainer}>
         <CalendarPicker
-          onDateChange={this.onDateChange}
+          onDateChange={onDateChange}
           width={340}
           minDate={Date.now()}
           todayBackgroundColor={Colors.PRIMARY}
