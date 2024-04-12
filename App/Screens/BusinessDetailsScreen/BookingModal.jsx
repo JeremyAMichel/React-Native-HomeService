@@ -1,14 +1,50 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CalendarPicker from "react-native-calendar-picker";
 import Colors from "../../Utils/Colors";
+import Heading from "../../Components/Heading";
 
 export default function BookingModal({ hideModal }) {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
 
   const onDateChange = (date) => {
     setSelectedStartDate(date);
+  };
+
+  const [timeList, setTimeList] = useState([]);
+
+  useEffect(() => {
+    getTime();
+  }, []);
+
+  const getTime = () => {
+    const timeList = [];
+    for (let i = 8; i <= 12; i++) {
+      timeList.push({
+        time: i + ":00 AM",
+      });
+      timeList.push({
+        time: i + ":30 AM",
+      });
+    }
+
+    for (let i = 1; i <= 7; i++) {
+      timeList.push({
+        time: i + ":00 PM",
+      });
+      timeList.push({
+        time: i + ":30 PM",
+      });
+    }
+
+    setTimeList(timeList);
   };
 
   return (
@@ -19,6 +55,7 @@ export default function BookingModal({ hideModal }) {
           flexDirection: "row",
           gap: 10,
           alignItems: "center",
+          marginBottom: 20,
         }}
         onPress={() => hideModal()}
       >
@@ -29,15 +66,30 @@ export default function BookingModal({ hideModal }) {
       </TouchableOpacity>
 
       {/* Calendar Section */}
+      <Heading text={"Select Date"} />
+
       <View style={styles.calendarContainer}>
         <CalendarPicker
           onDateChange={onDateChange}
           width={340}
           minDate={Date.now()}
-          todayBackgroundColor={Colors.PRIMARY}
+          todayBackgroundColor={Colors.BLACK}
           todayTextStyle={{ color: Colors.WHITE }}
-          selectedDayColor={Colors.BLACK}
+          selectedDayColor={Colors.PRIMARY}
           selectedDayTextColor={Colors.WHITE}
+        />
+      </View>
+
+      {/* Time Select Section */}
+      <View>
+        <FlatList
+          data={timeList}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity>
+              <Text>{item.time}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item.time}
         />
       </View>
     </View>
