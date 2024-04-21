@@ -1,8 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../Screens/HomeScreen/Home";
-import BusinessListByCategory from "../Screens/BusinessListByCategory/BusinessListByCategory";
 import BusinessDetails from "../Screens/BusinessDetailsScreen/BusinessDetails";
+import Booking from "../Screens/BookingScreen/Booking";
 
 const Stack = createStackNavigator();
 
@@ -13,8 +12,7 @@ export default function HomeNavigation() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="home-navigation" component={Home} />
-      <Stack.Screen name="business-list" component={BusinessListByCategory} />
+      <Stack.Screen name="booking-navigation" component={Booking} />
       <Stack.Screen name="business-detail" component={BusinessDetails} />
     </Stack.Navigator>
   );
